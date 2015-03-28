@@ -16,7 +16,7 @@ public class Request {
     }
 
     public void parse() {
-        StringBuffer request = new StringBuffer(2048);
+        StringBuilder request = new StringBuilder(2048);
         int i;
         byte[] buffer = new byte[2048];
         try {
