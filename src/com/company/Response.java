@@ -29,7 +29,6 @@ public class Response {
 
         try {
             File file = new File(SingleServer.webRootDirectory, request.getURI());
-            System.out.println("LOOK HERE ////////////////" + file.getAbsolutePath());
             if (file.exists()) {
                 fileInputStream = new FileInputStream(file);
                 int character = fileInputStream.read(bytes, 0, bufferSize);

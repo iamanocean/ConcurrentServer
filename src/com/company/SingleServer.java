@@ -16,7 +16,7 @@ import java.net.Socket;
 
 public class SingleServer {
 
-    public static final String webRootDirectory = System.getProperty("user.dir") + File.separator + "webroot";
+    public static final String webRootDirectory = System.getProperty("user.dir") + File.separator + "webroot/" + "html";
     private static final String shutdownCommand = "/SHUTDOWN";
     private boolean shutdown = false;
 
