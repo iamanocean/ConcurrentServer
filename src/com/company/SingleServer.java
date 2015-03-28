@@ -2,6 +2,7 @@ package com.company;
 
 /**
  * Created by louis on 3/28/15.
+ *
  */
 
 import java.io.File;
@@ -23,22 +24,23 @@ public class SingleServer {
         ServerSocket serverSocket = null;
         int port = 8080;
         try {
-            serverSocket =  new ServerSocket(port, 1, InetAddress.getByName("127.0.0.1"))
+            serverSocket =  new ServerSocket(port, 1, InetAddress.getByName("127.0.0.1"));
         } catch (IOException  e) {
             e.printStackTrace();
             System.exit(1);
         }
 
         while(!shutdown) {
-            Socket socket = null;
-            InputStream input = null;
-            OutputStream output = null;
+            Socket socket;
+            InputStream input;
+            OutputStream output;
             try {
                 socket = serverSocket.accept();
                 input = socket.getInputStream();
                 output = socket.getOutputStream();
 
                 Request request = new Request(input);
+
                 request.parse();
 
                 Response response = new Response(output);
@@ -47,10 +49,9 @@ public class SingleServer {
 
                 socket.close();
 
-                shutdown = request.getUri().equals(shutdownCommand);
+                shutdown = request.getURI().equals(shutdownCommand);
             } catch (Exception error) {
                 error.printStackTrace();
-                continue;
             }
         }
     }
