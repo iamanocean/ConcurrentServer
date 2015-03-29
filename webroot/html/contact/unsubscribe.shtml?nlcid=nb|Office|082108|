@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Dunder Mifflin: A Micro-Cap Regional Paper and Office Supply Distributor - Contact</title>
+<meta name="description" content="Official Site of Dunder Mifflin, Inc. Dunder Mifflin is a micro-cap regional paper and office supply distributor with branches in five states, including New Hampshire, New Jersey, New York, Ohio, and Pennsylvania." />
+
+<meta name="keywords" content="dunder mifflin, dunder-mifflin, dundermifflin, dunder mifflin paper, dunder-mifflin paper, dunder mifflin infinity, dunder mifflin scranton, dunder-mifflin scranton, ryan howard, scranton office supplies, office 360, the office 360, the office tv show, the office tv, the office tv series, NBC, NBC.com" />
+
+<link rel="stylesheet" href="../css/main.css" type="text/css"  />
+</head>
+<body id="navbtn_contact">
+<!--#include virtual="../includes/assets/header.shtml"-->
+<table width="100%" align="center"><tr><td width="100%" align="center">
+<table><tr><td>
+
+<!-- MAIN CONTENT BEGIN -->
+<div id="main_container">
+
+	<!-- start : header seaction -->
+	<div id="top_container">
+		<!--#include virtual="../includes/DM_header_nav.shtml"-->
+	</div>
+	<!-- end : header seaction -->
+	<!-- start : body content seaction -->
+	<div id="content_container" style="margin-top:8px;">
+		<!-- start : body content left seaction -->
+		<div id="content_left">
+			<img src="../images/title_contact.gif" width="721" height="62" />
+			<div id="contact_intro">
+				If you would like to unsubscribe from the Dunder Mifflin newsletter, please enter your email address below. Thank you!
+			</div>
+
+			<!-- INSERT FORM HERE -->
+
+				<form name=myform  action="http://studiopass.nbc.com/subscribe/unsubscribe.tml" method="POST" onSubmit="return checkForm(this);">
+				<div align="center" style="float:left; width:700px;">
+				<TABLE border=0 cellPadding=2 cellSpacing=4>
+				   <tr>
+				   <td align="right" width="150" class="black11v">Email Address:</td>
+				   <td align="left"><input class="main" type="text" name="email" size="30"></td>
+				   </tr>
+					<tr>
+						<td></td>
+						<td align="left"><input class="main" type="submit" value="Unsubscribe"></td>
+					</tr>
+			</table>
+
+					 	<input type="hidden" name="url" value="http://www.dundermifflinpaper.biz/contact/confirm.shtml">
+					    <input type="hidden" name="email_notification" value="F">
+					    <input type="hidden" name="confirm_first" value="F">
+					    <input type="hidden" name="showconfirm" value="F">
+    					<input type="hidden" name="lists" value="dunder-mifflin">
+					<br><br>
+				</div>
+			</form>
+<div id="contact_footer">
+By using this service, you are agreeing to be bound by our <a href="http://www.nbc.com/Footer/Privacy/" target="_blank">Privacy Policy</a> and  <a href="http://www.nbc.com/Footer/Privacy/privacy_policy_2.shtml" target="_blank">Terms of Use</a>.
+</div>
+
+		</div>
+		<!-- end : body content left seaction -->
+
+		<!-- start : body content right seaction -->
+		<div id="content_right" style="margin-right:-4px;"><img src="../images/about_bldg.jpg" width="250" height="447" align="right" /></div>
+		<!-- end : body content right seaction -->
+
+	</div>
+	<!-- end : body content seaction -->
+	<!--#include virtual="../includes/DM_footer.html"-->
+</div>
+
+<!-- MAIN CONTENT END -->
+
+</td></tr></table>
+</td></tr></table>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
