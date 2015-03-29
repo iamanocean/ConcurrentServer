@@ -39,6 +39,9 @@ public class SingleServer {
                 input = socket.getInputStream();
                 output = socket.getOutputStream();
 
+                String clientAddress = serverSocket.getInetAddress().toString();
+                System.out.println(clientAddress);
+
                 Request request = new Request(input);
 
                 request.parse();

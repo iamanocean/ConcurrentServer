@@ -1,5 +1,7 @@
 package com.company;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
+
 import java.io.FileInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -26,9 +28,14 @@ public class Response {
     public void sendStaticResource() throws IOException {
         byte[] bytes = new byte[bufferSize];
         FileInputStream fileInputStream = null;
-
+        File file;
         try {
-            File file = new File(SingleServer.webRootDirectory, request.getURI());
+            File tempFile = new File(SingleServer.webRootDirectory, request.getURI());
+            if (tempFile.isDirectory()) {
+                file = new File(SingleServer.webRootDirectory, request.getURI() + "/index.html");
+            } else {
+                file = new File(SingleServer.webRootDirectory, request.getURI());
+            }
             if (file.exists()) {
                 fileInputStream = new FileInputStream(file);
                 int character = fileInputStream.read(bytes, 0, bufferSize);
