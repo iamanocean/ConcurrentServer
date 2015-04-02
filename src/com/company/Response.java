@@ -1,6 +1,5 @@
 package com.company;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 
 import java.io.FileInputStream;
 import java.io.File;
@@ -9,13 +8,14 @@ import java.io.OutputStream;
 
 /**
  * Created by louis on 3/28/15.
- *
+ * Handles fulfilling the request.
  */
 public class Response {
 
     private static final int bufferSize = 1024;
     Request request;
     OutputStream output;
+
 
     public Response(OutputStream output) {
         this.output = output;
