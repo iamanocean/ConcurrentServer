@@ -1,5 +1,7 @@
 package com.company;
 
+import com.sun.org.apache.xpath.internal.operations.Mult;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -17,9 +19,11 @@ public class Main {
         System.out.println("On the bottom left hand corner of the Intellij terminal there's a block with an arrow above it that restarts a program");
         */
 
-        System.out.println(SingleServer.webRootDirectory);
 
-        SingleServer server = new SingleServer();
+//        SingleServer server = new SingleServer();
+//        server.await();
+
+        MultiServer server = new MultiServer(8080, "0.0.0.0");
         server.await();
     }
 }

@@ -36,6 +36,7 @@ public class SingleServer {
             OutputStream output;
             try {
                 socket = serverSocket.accept();
+                System.out.println("Here: " + socket.getInetAddress());
                 input = socket.getInputStream();
                 output = socket.getOutputStream();
 
