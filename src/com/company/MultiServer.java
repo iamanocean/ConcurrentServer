@@ -17,8 +17,7 @@ public class MultiServer {
     public static final String webRootDirectory = System.getProperty("user.dir") + File.separator + "webroot/" + "html";
     public Boolean shutdown = false;
 
-    public AtomicInteger threadCount;
-    private final static int threadLimit = 10;
+    private final static int threadLimit = 4;
     private int queueSize;
     private int port;
     private String address;
@@ -32,7 +31,6 @@ public class MultiServer {
     public MultiServer(int port, String address) {
         this.port = port;
         this.address = address;
-        threadCount = new AtomicInteger(0);
         clientData = new CoarseList<>();
         queueSize = 10000;
         workQueue = new BoundedQueue<>(queueSize);
@@ -58,10 +56,9 @@ public class MultiServer {
                     Transaction transaction = new Transaction(socket, clientData, this);
 
                     workQueue.enqueue(transaction);
-                    while (threadCount.get() == threadLimit) {}
-                    threadCount.getAndIncrement();
+                    while (Thread.activeCount() >= threadLimit) {}
+                    System.out.println(Thread.activeCount());
                     Thread thread = new Thread(workQueue.dequeue());
-                    System.out.println("Active count: " + Thread.activeCount());
                     thread.start();
 
                 } catch (Exception error) {
