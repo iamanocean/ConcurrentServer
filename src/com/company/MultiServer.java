@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -16,9 +17,14 @@ public class MultiServer {
     public static final String webRootDirectory = System.getProperty("user.dir") + File.separator + "webroot/" + "html";
     public Boolean shutdown = false;
 
+    public AtomicInteger threadCount;
+    private final static int threadLimit = 10;
+    private int queueSize;
     private int port;
     private String address;
     private CoarseList<RequestData> clientData;
+    private BoundedQueue<Transaction> workQueue;
+
 
     /**
      * Constructor for the class, consider switching parameter order
@@ -26,7 +32,10 @@ public class MultiServer {
     public MultiServer(int port, String address) {
         this.port = port;
         this.address = address;
-        clientData = new CoarseList<RequestData>();
+        threadCount = new AtomicInteger(0);
+        clientData = new CoarseList<>();
+        queueSize = 10000;
+        workQueue = new BoundedQueue<>(queueSize);
     }
 
     /**
@@ -47,7 +56,12 @@ public class MultiServer {
 
                     //Send a thread off to do the hard work
                     Transaction transaction = new Transaction(socket, clientData, this);
-                    Thread thread = new Thread(transaction);
+
+                    workQueue.enqueue(transaction);
+                    while (threadCount.get() == threadLimit) {}
+                    threadCount.getAndIncrement();
+                    Thread thread = new Thread(workQueue.dequeue());
+                    System.out.println("Active count: " + Thread.activeCount());
                     thread.start();
 
                 } catch (Exception error) {

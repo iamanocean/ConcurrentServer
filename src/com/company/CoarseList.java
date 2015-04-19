@@ -23,7 +23,7 @@ public class CoarseList<T> {
         while (curr.item != null) {
             pred = curr;
             curr = pred.next;
-            System.out.println("Reporting:" + pred.item.toString());
+            //System.out.println("Reporting:" + pred.item.toString());
         }
     }
     public boolean add(T item) {
@@ -43,7 +43,7 @@ public class CoarseList<T> {
             if (key == curr.key) {
                 return false;
             } else {
-                Node node = new Node<T>(item);
+                Node node = new Node<>(item);
                 node.next = curr;
                 pred.next = node;
                 return true;

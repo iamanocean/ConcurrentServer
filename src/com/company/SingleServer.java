@@ -46,7 +46,7 @@ public class SingleServer {
                 output = socket.getOutputStream();
 
                 String clientAddress = serverSocket.getLocalSocketAddress().toString();
-                System.out.println(clientAddress);
+                //System.out.println(clientAddress);
 
                 Request request = new Request(input);
 

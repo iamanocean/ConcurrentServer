@@ -51,6 +51,7 @@ public class Transaction implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            server.threadCount.getAndDecrement();
         }
 
     }
