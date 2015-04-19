@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -17,12 +19,11 @@ public class MultiServer {
     public static final String webRootDirectory = System.getProperty("user.dir") + File.separator + "webroot/" + "html";
     public Boolean shutdown = false;
 
-    private final static int threadLimit = 4;
     private int queueSize;
     private int port;
     private String address;
     private CoarseList<RequestData> clientData;
-    private BoundedQueue<Transaction> workQueue;
+    private BoundedQueue<Runnable> workQueue;
 
 
     /**
@@ -40,6 +41,7 @@ public class MultiServer {
      * Starts listening on a port
      * */
     public void await() {
+        ExecutorService executor = Executors.newFixedThreadPool(1);
         ServerSocket serverSocket = null;
         try {
             serverSocket =  new ServerSocket(port, 1, InetAddress.getByName(address));
@@ -53,13 +55,13 @@ public class MultiServer {
                     socket = serverSocket.accept();
 
                     //Send a thread off to do the hard work
-                    Transaction transaction = new Transaction(socket, clientData, this);
+                    Runnable transaction = new Transaction(socket, clientData, this);
 
-                    workQueue.enqueue(transaction);
-                    while (Thread.activeCount() >= threadLimit) {}
+//                    workQueue.enqueue(transaction);
+//                    while (Thread.activeCount() >= threadLimit) {}
                     System.out.println(Thread.activeCount());
-                    Thread thread = new Thread(workQueue.dequeue());
-                    thread.start();
+//                    Runnable worker = workQueue.dequeue();
+                    executor.execute(transaction);
 
                 } catch (Exception error) {
                     error.printStackTrace();
