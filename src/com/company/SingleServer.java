@@ -19,12 +19,18 @@ public class SingleServer {
     public static final String webRootDirectory = System.getProperty("user.dir") + File.separator + "webroot/" + "html";
     private static final String shutdownCommand = "/SHUTDOWN";
     private boolean shutdown = false;
+    private int port;
+    private String address;
+
+    public SingleServer(int port, String address) {
+        this.port = port;
+        this.address = address;
+    }
 
     public void await() {
         ServerSocket serverSocket = null;
-        int port = 8080;
         try {
-            serverSocket =  new ServerSocket(port, 1, InetAddress.getByName("0.0.0.0"));
+            serverSocket =  new ServerSocket(port, 1, InetAddress.getByName(address));
         } catch (IOException  e) {
             e.printStackTrace();
             System.exit(1);
@@ -39,8 +45,8 @@ public class SingleServer {
                 input = socket.getInputStream();
                 output = socket.getOutputStream();
 
-                String clientAddress = serverSocket.getInetAddress().toString();
-                System.out.println(clientAddress);
+                String clientAddress = serverSocket.getLocalSocketAddress().toString();
+                //System.out.println(clientAddress);
 
                 Request request = new Request(input);
 

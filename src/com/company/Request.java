@@ -6,6 +6,8 @@ import java.io.InputStream;
 /**
  * Created by louis on 3/28/15.
  *
+ * Responsible for parsing the input stream and generating a URI for the server.
+ *
  */
 public class Request {
 
@@ -28,7 +30,6 @@ public class Request {
         for (int j = 0; j < i; j++) {
             request.append((char) buffer[j]);
         }
-        System.out.print(request.toString());
         URI = parseUri(request.toString());
     }
 
