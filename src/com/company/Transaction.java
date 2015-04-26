@@ -37,7 +37,7 @@ public class Transaction implements Runnable {
 
         RequestData temporaryInformation;
         temporaryInformation = new RequestData(socket.getInetAddress().toString(), request.getURI());
-        clientData.add(temporaryInformation);
+//        clientData.add(temporaryInformation);
 
         server.shutdown = request.getURI().equals(shutdownCommand);
 

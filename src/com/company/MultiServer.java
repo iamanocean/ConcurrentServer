@@ -7,7 +7,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -41,7 +40,7 @@ public class MultiServer {
      * Starts listening on a port
      * */
     public void await() {
-        ExecutorService executor = Executors.newFixedThreadPool(1);
+        ExecutorService executor = Executors.newFixedThreadPool(100);
         ServerSocket serverSocket = null;
         try {
             serverSocket =  new ServerSocket(port, 1, InetAddress.getByName(address));
