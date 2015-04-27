@@ -10,9 +10,11 @@ public class CoarseList<T> {
 
     public Node head;
     private ReentrantLock lock = new ReentrantLock();
-    public CoarseList() {
+    private boolean blocking;
+    public CoarseList(boolean blocking) {
         head = new Node(Integer.MIN_VALUE);
         head.next = new Node(Integer.MAX_VALUE);
+        this.blocking = blocking;
     }
 
     public void print() {
@@ -30,12 +32,14 @@ public class CoarseList<T> {
         Node pred;
         Node curr;
         int key = item.hashCode();
-        lock.lock();
+
+        if(blocking) {
+            lock.lock();
+        }
         try {
             pred = head;
             curr = pred.next;
             while (curr.key < key) {
-
                 pred = curr;
                 curr = curr.next;
             }
@@ -49,14 +53,18 @@ public class CoarseList<T> {
                 return true;
             }
         } finally {
-            lock.unlock();
+            if (blocking) {
+                lock.unlock();
+            }
         }
     }
     public boolean remove(T item) {
         Node pred;
         Node curr;
         int key = item.hashCode();
-        lock.lock();
+        if (blocking) {
+            lock.lock();
+        }
         try {
             pred = head;
             curr = pred.next;
@@ -71,32 +79,11 @@ public class CoarseList<T> {
                 return false;
             }
         } finally {
-            lock.unlock();
+            if (blocking) {
+                lock.unlock();
+            }
         }
     }
 
-    public boolean contains(T item) {
-        Node pred;
-        Node curr;
-        int key = item.hashCode();
-        lock.lock();
-        try {
-            pred = head;
-            curr = pred.next;
-            while (curr.key < key) {
-
-                pred = curr;
-                curr = curr.next;
-            }
-
-            if (key == curr.key) {
-                return true;
-            } else {
-                return false;
-            }
-        } finally {
-            lock.unlock();
-        }
-    }
 
 }
