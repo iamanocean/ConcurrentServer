@@ -41,7 +41,7 @@ public class Transaction implements Runnable {
             clientData.add(temporaryInformation);
         }
 
-        server.shutdown = request.getURI().equals(shutdownCommand);
+//        server.shutdown = request.getURI().equals(shutdownCommand);
 
         try {
             response.sendStaticResource();
