@@ -51,10 +51,6 @@ public class SingleServer {
                 input = socket.getInputStream();
                 output = socket.getOutputStream();
 
-//                String clientAddress = serverSocket.getLocalSocketAddress().toString();
-                //System.out.println(clientAddress);
-
-
                 Request request = new Request(input);
                 request.parse();
 
