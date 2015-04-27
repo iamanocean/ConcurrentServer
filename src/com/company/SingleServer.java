@@ -21,11 +21,17 @@ public class SingleServer {
     private boolean shutdown = false;
     private int port;
     private String address;
+    public boolean logging;
+    public CoarseList<RequestData> log;
 
-    public SingleServer(int port, String address) {
+
+    public SingleServer(int port, String address, boolean logging) {
         this.port = port;
         this.address = address;
+        this.logging = logging;
+        this.log = new CoarseList<>(false);
     }
+
 
     public void await() {
         ServerSocket serverSocket = null;
@@ -45,17 +51,21 @@ public class SingleServer {
                 input = socket.getInputStream();
                 output = socket.getOutputStream();
 
-                String clientAddress = serverSocket.getLocalSocketAddress().toString();
+//                String clientAddress = serverSocket.getLocalSocketAddress().toString();
                 //System.out.println(clientAddress);
 
-                Request request = new Request(input);
 
+                Request request = new Request(input);
                 request.parse();
 
+                if(logging) {
+                    RequestData temporaryInformation;
+                    temporaryInformation = new RequestData(socket.getInetAddress().toString(), request.getURI());
+                    log.add(temporaryInformation);
+                }
                 Response response = new Response(output);
                 response.setRequest(request);
                 response.sendStaticResource();
-
                 socket.close();
 
                 shutdown = request.getURI().equals(shutdownCommand);

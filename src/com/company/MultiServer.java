@@ -18,32 +18,33 @@ public class MultiServer {
     public static final String webRootDirectory = System.getProperty("user.dir") + File.separator + "webroot/" + "html";
     public Boolean shutdown = false;
 
-    private int queueSize;
     private int port;
     private String address;
     private CoarseList<RequestData> clientData;
-    private BoundedQueue<Runnable> workQueue;
+    public boolean logging;
+    private int threadCount;
 
 
     /**
      * Constructor for the class, consider switching parameter order
      * */
-    public MultiServer(int port, String address) {
+    public MultiServer(int port, String address, int threadCount, boolean logging) {
         this.port = port;
         this.address = address;
-        clientData = new CoarseList<>();
-        queueSize = 10000;
-        workQueue = new BoundedQueue<>(queueSize);
+        this.threadCount = threadCount;
+        this.logging = logging;
+        clientData = new CoarseList<>(true);
     }
+
 
     /**
      * Starts listening on a port
      * */
     public void await() {
-        ExecutorService executor = Executors.newFixedThreadPool(100);
+        ExecutorService executor = Executors.newFixedThreadPool(threadCount);
         ServerSocket serverSocket = null;
         try {
-            serverSocket =  new ServerSocket(port, 1, InetAddress.getByName(address));
+            serverSocket = new ServerSocket(port, 1, InetAddress.getByName(address));
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
@@ -52,16 +53,8 @@ public class MultiServer {
             Socket socket;
                 try {
                     socket = serverSocket.accept();
-
-                    //Send a thread off to do the hard work
                     Runnable transaction = new Transaction(socket, clientData, this);
-
-//                    workQueue.enqueue(transaction);
-//                    while (Thread.activeCount() >= threadLimit) {}
-                    System.out.println(Thread.activeCount());
-//                    Runnable worker = workQueue.dequeue();
                     executor.execute(transaction);
-
                 } catch (Exception error) {
                     error.printStackTrace();
                 } finally {

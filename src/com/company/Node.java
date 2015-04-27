@@ -13,7 +13,7 @@ public class Node<T> {
     int key;
     Node next;
 
-    /*
+    /**
      *	Node object Constructor for sentinel nodes
      *
      *	@param	key		The key for the sentinel node
@@ -22,7 +22,7 @@ public class Node<T> {
         this.key = key;
     }
 
-    /*
+    /**
      *	Node object Constructor for all other nodes
      *
      *	@param	item	Any object that has a hashCode() method
